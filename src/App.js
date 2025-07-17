@@ -516,7 +516,7 @@ const css = String.raw`
   @media(max-width:600px){.logo-img{height:38px}}
 
   /* NAVBAR */
-.navbar {
+  .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -527,105 +527,62 @@ const css = String.raw`
     top: 0;
     z-index: 1000;
     flex-wrap: wrap; /* Allow wrapping of items */
-}
-
-.logo-img {
-    height: 46px; /* Adjust logo height */
-    width: auto;
-}
-
-.menu {
+  }
+  .menu {
     display: flex;
     list-style: none;
     gap: 22px;
     flex-wrap: wrap; /* Allow menu items to wrap */
-}
-
-.menu li {
+  }
+  .menu li {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
-}
-
-.right {
+  }
+  .right {
     display: flex;
     gap: 15px;
     align-items: center;
     flex-wrap: wrap; /* Allow buttons to wrap */
-}
-
-.search {
+  }
+  .search {
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 20px;
     max-width: 200px; /* Limit width on mobile */
     flex: 1; /* Allow search to grow */
-}
-
-/* Media Queries for Navbar */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-        align-items: flex-start; /* Align items to the start */
-    }
-    .menu {
-        flex-direction: column; /* Stack menu items vertically */
-        gap: 10px; /* Reduce gap between menu items */
-    }
-    .right {
-        flex-direction: column; /* Stack buttons vertically */
-        gap: 10px; /* Reduce gap between buttons */
-        width: 100%; /* Full width for buttons */
-    }
-    .search {
-        width: 100%; /* Full width for search input */
-        margin-bottom: 10px; /* Add margin below search */
-    }
-}
+  }
 
   /* BUTTONS */
-.btn {
+  .btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-weight: 600;
     cursor: pointer;
-}
-
-.btn.primary {
+  }
+  .btn.primary {
     padding: 11px 20px;
     border-radius: 28px;
     background: #2f6b48;
     color: #fff;
     border: none;
     font-size: 15px;
-}
-
-.btn.ghost {
+  }
+  .btn.ghost {
     padding: 11px 20px;
     border-radius: 28px;
     background: #fff;
     border: 2px solid #2f6b48;
     color: #2f6b48;
     font-size: 15px;
-}
-
-.btn.ghost.sm {
+  }
+  .btn.ghost.sm {
     padding: 8px 18px;
     font-size: 14px;
-}
-
-/* Media Queries for Buttons */
-@media (max-width: 768px) {
-    .btn {
-        width: 100%; /* Full width for buttons on smaller screens */
-        padding: 10px; /* Adjust padding for smaller screens */
-        font-size: 14px; /* Adjust font size for smaller screens */
-    }
-}
-
+  }
 
   /* HERO */
   .hero {
@@ -777,32 +734,110 @@ const css = String.raw`
   }
 
   /* CASE STUDIES */
-  .case-section {
-    text-align: center;
-    padding: 100px 20px;
+  /* CASE STUDIES */
+.case-section {
+  text-align: center;
+  padding: 100px 20px;
+}
+.case-section h2 {
+  font-size: 34px;
+  margin-bottom: 12px;
+}
+.case-section h2 em {
+  color: #2f6b48;
+}
+.case-tagline {
+  font-size: 16px;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+.case-carousel {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow wrapping */
+}
+
+.case-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 320px;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.case-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.case-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.case-body h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.case-body p {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #4a4a4a;
+}
+
+/* CASE NAV (optional buttons like arrows if used) */
+.case-nav {
+  background: transparent;
+  border: none;
+  color: #2f6b48;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .case-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 10px 0;
   }
+}
+
+@media (max-width: 480px) {
   .case-section h2 {
-    font-size: 34px;
-    margin-bottom: 12px;
-  }
-  .case-section h2 em {
-    color: #2f6b48;
+    font-size: 28px;
   }
   .case-tagline {
-    font-size: 16px;
-    color: #555;
-    max-width: 700px;
-    margin: 0 auto 50px;
+    font-size: 14px;
   }
   .case-carousel {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-wrap: wrap; /* Allow wrapping */
+    gap: 16px;
   }
+  .case-card img {
+    height: 160px;
+  }
+  .case-body h3 {
+    font-size: 16px;
+  }
+  .case-body p {
+    font-size: 13px;
+  }
+}
+
   .case-nav {
     background: transparent;
     border: none;
@@ -1281,6 +1316,9 @@ const css = String.raw`
     }
   }
 `;
+
+
+
 
 
 
