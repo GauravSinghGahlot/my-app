@@ -503,6 +503,7 @@ export default function App() {
 }
 
 /*────────────────────  FULL CSS  ───────────────────────────*/
+/*────────────────────  FULL CSS  ───────────────────────────*/
 const css = String.raw`
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -771,7 +772,7 @@ const css = String.raw`
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     width: 300px;
-    flex: 0 0 300px;
+        flex: 0 0 300px;
     display: flex;
     flex-direction: column;
     margin: 10px; /* Added margin */
@@ -1116,8 +1117,98 @@ const css = String.raw`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    font-size     }
+    font-size: 16px;
   }
+  .foot-links li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .foot-contact {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* FORM PAGE */
+  .form-page {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+  }
+  .form-page h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 30px;
+  }
+  .form-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .form-page label {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .form-page input {
+    padding: 11px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  svg {
+    flex: none;
+  }
+
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .menu {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hero h1 {
+      font-size: 32px;
+    }
+    .hero p {
+      font-size: 16px;
+    }
+    .case-card {
+      width: 100%; /* Full width on mobile */
+      margin: 10px 0; /* Add vertical margin */
+    }
+    .testi-card {
+      width: 100%; /* Full width on mobile */
+      margin: 10px 0; /* Add vertical margin */
+    }
+    .tech-inner {
+      flex-direction: column;
+      align-items: center;
+    }
+    .tech-cats {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tech-content {
+      text-align: center;
+    }
+    .cta-section {
+      flex-direction: column;
+      align-items: center;
+    }
+    .brands {
+      font-size: 20px; /* Adjust font size for mobile */
+      gap: 20px; /* Adjust gap for mobile */
+    }
+  }
+
   @media (max-width: 480px) {
     .hero h1 {
       font-size: 28px;
@@ -1147,6 +1238,7 @@ const css = String.raw`
     }
   }
 `;
+
 
 
 
