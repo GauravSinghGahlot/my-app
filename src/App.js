@@ -503,6 +503,7 @@ export default function App() {
 }
 
 /*────────────────────  FULL CSS  ───────────────────────────*/
+/* Full CSS with Responsive Adjustments */
 const css = String.raw`
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -645,6 +646,65 @@ const css = String.raw`
   .form-page input{padding:11px;border-radius:6px;border:1px solid #ccc;font-size:14px;}
 
   svg{flex:none;}
+
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .menu {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hero h1 {
+      font-size: 32px;
+    }
+    .hero p {
+      font-size: 16px;
+    }
+    .case-card {
+      width: 100%;
+    }
+    .testi-card {
+      width: 100%;
+    }
+    .tech-inner {
+      flex-direction: column;
+      align-items: center;
+    }
+    .tech-cats {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tech-content {
+      text-align: center;
+    }
+    .cta-section {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 {
+      font-size: 28px;
+    }
+    .hero p {
+      font-size: 14px;
+    }
+    .btn.primary, .btn.ghost {
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+    .testi-card {
+      padding: 16px;
+    }
+    .form-page {
+      padding: 20px;
+    }
+  }
 `;
 
 
