@@ -516,7 +516,7 @@ const css = String.raw`
   @media(max-width:600px){.logo-img{height:38px}}
 
   /* NAVBAR */
-  .navbar {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -527,62 +527,105 @@ const css = String.raw`
     top: 0;
     z-index: 1000;
     flex-wrap: wrap; /* Allow wrapping of items */
-  }
-  .menu {
+}
+
+.logo-img {
+    height: 46px; /* Adjust logo height */
+    width: auto;
+}
+
+.menu {
     display: flex;
     list-style: none;
     gap: 22px;
     flex-wrap: wrap; /* Allow menu items to wrap */
-  }
-  .menu li {
+}
+
+.menu li {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
-  }
-  .right {
+}
+
+.right {
     display: flex;
     gap: 15px;
     align-items: center;
     flex-wrap: wrap; /* Allow buttons to wrap */
-  }
-  .search {
+}
+
+.search {
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 20px;
     max-width: 200px; /* Limit width on mobile */
     flex: 1; /* Allow search to grow */
-  }
+}
+
+/* Media Queries for Navbar */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start; /* Align items to the start */
+    }
+    .menu {
+        flex-direction: column; /* Stack menu items vertically */
+        gap: 10px; /* Reduce gap between menu items */
+    }
+    .right {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px; /* Reduce gap between buttons */
+        width: 100%; /* Full width for buttons */
+    }
+    .search {
+        width: 100%; /* Full width for search input */
+        margin-bottom: 10px; /* Add margin below search */
+    }
+}
 
   /* BUTTONS */
-  .btn {
+.btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-weight: 600;
     cursor: pointer;
-  }
-  .btn.primary {
+}
+
+.btn.primary {
     padding: 11px 20px;
     border-radius: 28px;
     background: #2f6b48;
     color: #fff;
     border: none;
     font-size: 15px;
-  }
-  .btn.ghost {
+}
+
+.btn.ghost {
     padding: 11px 20px;
     border-radius: 28px;
     background: #fff;
     border: 2px solid #2f6b48;
     color: #2f6b48;
     font-size: 15px;
-  }
-  .btn.ghost.sm {
+}
+
+.btn.ghost.sm {
     padding: 8px 18px;
     font-size: 14px;
-  }
+}
+
+/* Media Queries for Buttons */
+@media (max-width: 768px) {
+    .btn {
+        width: 100%; /* Full width for buttons on smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+}
+
 
   /* HERO */
   .hero {
