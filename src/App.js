@@ -503,6 +503,7 @@ export default function App() {
 }
 
 /*────────────────────  FULL CSS  ───────────────────────────*/
+/*────────────────────  FULL CSS  ───────────────────────────*/
 const css = String.raw`
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -537,7 +538,7 @@ const css = String.raw`
   /* TRUST */
   .trust{text-align:center;padding:70px 20px;}
   .trust p{font-size:24px;margin-bottom:26px;}
-  .brands{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;color:#555;font-size:28px;}
+  .brands{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;color:#555;font-size:24px;} /* Adjusted font size and gap */
 
   /* EXPERTISE */
   .expertise{text-align:center;background:#f6f6f6;padding:100px 20px;}
@@ -563,9 +564,9 @@ const css = String.raw`
   .case-section h2{font-size:34px;margin-bottom:12px;}
   .case-section h2 em{color:#2f6b48;}
   .case-tagline{font-size:16px;color:#555;max-width:700px;margin:0 auto 50px;}
-  .case-carousel{display:flex;align-items:center;gap:30px;justify-content:center;max-width:1200px;margin:0 auto;}
+  .case-carousel{display:flex;align-items:center;gap:30px;justify-content:center;max-width:1200px;margin:0 auto;flex-wrap:wrap;} /* Allow wrapping */
   .case-nav{background:transparent;border:none;color:#2f6b48;font-size:22px;cursor:pointer;}
-  .case-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;width:300px;flex:0 0 300px;display:flex;flex-direction:column;}
+  .case-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;width:300px;flex:0 0 300px;display:flex;flex-direction:column;margin:10px;} /* Added margin */
   .case-card img{width:100%;height:200px;object-fit:cover;border-radius:8px 8px 0 0;}
   .case-body{padding:20px;display:flex;flex-direction:column;gap:14px;}
   .case-body h3{font-size:18px;font-weight:600;}
@@ -663,10 +664,12 @@ const css = String.raw`
       font-size: 16px;
     }
     .case-card {
-      width: 100%;
+      width: 100%; /* Full width on mobile */
+      margin: 10px 0; /* Add vertical margin */
     }
     .testi-card {
-      width: 100%;
+      width: 100%; /* Full width on mobile */
+      margin: 10px 0; /* Add vertical margin */
     }
     .tech-inner {
       flex-direction: column;
@@ -683,6 +686,10 @@ const css = String.raw`
     .cta-section {
       flex-direction: column;
       align-items: center;
+    }
+    .brands {
+      font-size: 20px; /* Adjust font size for mobile */
+      gap: 20px; /* Adjust gap for mobile */
     }
   }
 
@@ -703,8 +710,20 @@ const css = String.raw`
     .form-page {
       padding: 20px;
     }
+    .case-section h2 {
+      font-size: 28px; /* Adjust heading size for mobile */
+    }
+    .case-tagline {
+      font-size: 14px; /* Adjust tagline size for mobile */
+    }
+    .case-carousel {
+      flex-direction: column; /* Stack cards vertically on mobile */
+      align-items: center; /* Center cards */
+    }
   }
 `;
+
+
 
 
 
