@@ -1077,18 +1077,20 @@ const css = String.raw`
     transition: transform .3s;
   }
     
+/* ──────────────────── Testimonial Mobile Fix ───────────────────── */
 @media (max-width: 768px) {
   .testi-carousel {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
     position: relative;
+    display: flex;
+    overflow: hidden; /* Hides overflow cards */
+    flex-wrap: nowrap;
+    width: 100%;
   }
 
   .testi-card {
-    flex: 0 0 100%;
+    flex: 0 0 100%; /* Show one card at a time */
     max-width: 100%;
-    transition: transform 0.4s ease;
+    box-sizing: border-box;
   }
 
   .testi-nav {
@@ -1096,25 +1098,26 @@ const css = String.raw`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.3);
     border: none;
-    cursor: pointer;
     padding: 8px;
+    cursor: pointer;
+    z-index: 1;
   }
 
   .testi-nav:first-of-type {
-    left: 0;
+    left: 10px;
   }
 
   .testi-nav:last-of-type {
-    right: 0;
+    right: 10px;
   }
 
   .testi-progress {
-    display: none;
+    display: none; /* Optional: hide progress bar on mobile */
   }
 }
+
 
 
   /* TECH SECTION */
