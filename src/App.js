@@ -1084,46 +1084,26 @@ const css = String.raw`
 @media (max-width: 768px) {
   .testi-carousel {
     display: flex;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .testi-card {
-    min-width: 100%;
     flex: 0 0 100%;
-    transition: transform 0.4s ease-in-out;
-  }
-
-  .testi-carousel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    min-width: 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    box-sizing: border-box;
   }
 
   .testi-nav {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-  }
-
-  .testi-nav:first-of-type {
-    left: 10px;
-  }
-
-  .testi-nav:last-of-type {
-    right: 10px;
+    display: none; /* Hide buttons on mobile */
   }
 }
-
-
-
 
 
   /* TECH SECTION */
