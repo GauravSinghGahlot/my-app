@@ -1076,48 +1076,46 @@ const css = String.raw`
     background: #2f6b48;
     transition: transform .3s;
   }
-   /* Mobile-specific styles for testimonial overflow fix */
+    
 @media (max-width: 768px) {
   .testi-carousel {
     display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    padding-left: 16px;
-    padding-right: 16px;
-    gap: 16px;
   }
 
   .testi-card {
     flex: 0 0 100%;
-    min-width: 100%;
-    scroll-snap-align: start;
-    box-sizing: border-box;
+    max-width: 100%;
+    transition: transform 0.4s ease;
   }
 
   .testi-nav {
     display: block;
     position: absolute;
-    top: 40%;
-    z-index: 2;
-    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
     border: none;
-    font-size: 24px;
     cursor: pointer;
+    padding: 8px;
   }
 
   .testi-nav:first-of-type {
-    left: 10px;
+    left: 0;
   }
 
   .testi-nav:last-of-type {
-    right: 10px;
+    right: 0;
+  }
+
+  .testi-progress {
+    display: none;
   }
 }
+
 
   /* TECH SECTION */
   .tech-section {
