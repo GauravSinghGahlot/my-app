@@ -1076,7 +1076,26 @@ const css = String.raw`
     background: #2f6b48;
     transition: transform .3s;
   }
+    /* Mobile-specific styles for testimonial overflow fix */
+@media (max-width: 768px) {
+  .testi-carousel {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 
+  .testi-card {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+
+  .testi-nav {
+    display: none; /* Hide arrows on small screens */
+  }
+}
   /* TECH SECTION */
   .tech-section {
     text-align: center;
@@ -1316,6 +1335,7 @@ const css = String.raw`
     }
   }
 `;
+
 
 
 
