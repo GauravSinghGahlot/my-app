@@ -1081,34 +1081,44 @@ const css = String.raw`
   }
     
 /* Ensure only one card visible on mobile */
-.testi-carousel {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  padding: 1rem;
-}
+@media (max-width: 768px) {
+  .testi-carousel {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 
-.testi-card {
-  flex: 0 0 100%;
-  min-width: 100%;
-  max-width: 100%;
-  scroll-snap-align: center;
-  box-sizing: border-box;
-}
-
-/* Optional: for better look */
-.testi-card {
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
   .testi-card {
-    flex: 0 0 45%;
-    min-width: 45%;
-    max-width: 45%;
+    min-width: 100%;
+    flex: 0 0 100%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .testi-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .testi-nav {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  .testi-nav:first-of-type {
+    left: 10px;
+  }
+
+  .testi-nav:last-of-type {
+    right: 10px;
   }
 }
 
