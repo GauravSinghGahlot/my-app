@@ -330,6 +330,9 @@ const Testimonials = () => {
   );
 };
 
+
+
+
 /*────────────────────  TECH CAPABILITIES  ─────────────────────*/
 const TechCapabilities = () => {
   const data = {
@@ -1077,46 +1080,39 @@ const css = String.raw`
     transition: transform .3s;
   }
     
-/* ──────────────────── Testimonial Mobile Fix ───────────────────── */
-@media (max-width: 768px) {
-  .testi-carousel {
-    position: relative;
-    display: flex;
-    overflow: hidden; /* Hides overflow cards */
-    flex-wrap: nowrap;
-    width: 100%;
-  }
+/* Ensure only one card visible on mobile */
+.testi-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem;
+}
 
+.testi-card {
+  flex: 0 0 100%;
+  min-width: 100%;
+  max-width: 100%;
+  scroll-snap-align: center;
+  box-sizing: border-box;
+}
+
+/* Optional: for better look */
+.testi-card {
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
   .testi-card {
-    flex: 0 0 100%; /* Show one card at a time */
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .testi-nav {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.3);
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    z-index: 1;
-  }
-
-  .testi-nav:first-of-type {
-    left: 10px;
-  }
-
-  .testi-nav:last-of-type {
-    right: 10px;
-  }
-
-  .testi-progress {
-    display: none; /* Optional: hide progress bar on mobile */
+    flex: 0 0 45%;
+    min-width: 45%;
+    max-width: 45%;
   }
 }
+
+
 
 
 
