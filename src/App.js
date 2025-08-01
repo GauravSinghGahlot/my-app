@@ -580,11 +580,13 @@ const css = String.raw`
     z-index: 1000;
     min-height: 70px;
     flex-wrap: nowrap;
+    gap: 15px;
   }
   
-  @media (max-width: 1024px) and (min-width: 769px) {
+  @media (max-width: 1200px) and (min-width: 769px) {
     .navbar {
       padding: 15px 20px;
+      gap: 12px;
     }
   }
   
@@ -593,13 +595,29 @@ const css = String.raw`
     display: flex;
     list-style: none;
     gap: 22px;
+    flex-shrink: 1;
+    min-width: 0;
   }
+  
+  @media (max-width: 1200px) and (min-width: 769px) {
+    .desktop-menu {
+      gap: 18px;
+    }
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .desktop-menu {
+      gap: 15px;
+    }
+  }
+  
   .desktop-menu li {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
+    white-space: nowrap;
   }
   
   /* Desktop Right Section */
@@ -608,7 +626,21 @@ const css = String.raw`
     gap: 15px;
     align-items: center;
     flex-shrink: 0;
-    min-width: 0;
+    min-width: 280px;
+  }
+  
+  @media (max-width: 1200px) and (min-width: 769px) {
+    .desktop-right {
+      gap: 12px;
+      min-width: 260px;
+    }
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .desktop-right {
+      gap: 10px;
+      min-width: 240px;
+    }
   }
   
   .search {
@@ -616,25 +648,16 @@ const css = String.raw`
     border: 1px solid #ccc;
     border-radius: 20px;
     width: 160px;
-    min-width: 120px;
+    flex-shrink: 0;
   }
   
-  /* Adjust button text for smaller screens */
-  @media (max-width: 1024px) and (min-width: 769px) {
-    .desktop-right .btn.ghost {
-      font-size: 13px;
-      padding: 9px 16px;
-    }
+  @media (max-width: 1200px) and (min-width: 769px) {
     .search {
       width: 140px;
     }
   }
   
-  @media (max-width: 900px) and (min-width: 769px) {
-    .desktop-right .btn.ghost {
-      font-size: 12px;
-      padding: 8px 14px;
-    }
+  @media (max-width: 1024px) and (min-width: 769px) {
     .search {
       width: 120px;
     }
@@ -793,6 +816,30 @@ const css = String.raw`
     border: 2px solid #2f6b48;
     color: #2f6b48;
     font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  /* Responsive button sizing for desktop/laptop */
+  @media (max-width: 1200px) and (min-width: 769px) {
+    .btn.ghost {
+      font-size: 14px;
+      padding: 10px 18px;
+    }
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .btn.ghost {
+      font-size: 13px;
+      padding: 9px 16px;
+    }
+  }
+  
+  @media (max-width: 900px) and (min-width: 769px) {
+    .btn.ghost {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
   }
   .btn.ghost.sm {
     padding: 8px 18px;
