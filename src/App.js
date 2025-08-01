@@ -316,6 +316,7 @@ const StrategicPartners = () => {
 
 /*────────────────────  TESTIMONIALS  ─────────────────────────*/
 const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const reviews = [
     [
       "Grow Nexus delivered a stable, slick delivery app that helped us scale city‑wide within weeks.",
@@ -338,10 +339,15 @@ const Testimonials = () => {
       "Founder, BuildingNeeds",
     ],
   ];
-  const [idx, setIdx] = useState(0);
-  const prev = () => setIdx((i) => (i ? i - 1 : reviews.length - 1));
-  const next = () => setIdx((i) => (i + 1) % reviews.length);
-  const vis = [0, 1, 2, 3].map((o) => reviews[(idx + o) % reviews.length]);
+
+  // Auto-scroll effect
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [reviews.length]);
 
   return (
     <section className="testi-section">
@@ -349,12 +355,41 @@ const Testimonials = () => {
         Trusted by <em>Leaders</em>
       </h2>
       <p className="testi-tagline">Here’s what our founders say</p>
-      <div className="testi-carousel">
-        <button className="testi-nav" onClick={prev}>
-          <ArrowIcon dir="left" />
-        </button>
-        {vis.map(([text, name, title]) => (
-          <div className="testi-card" key={name}>
+      <div className="testi-carousel-container">
+        <div 
+          className="testi-carousel-track" 
+          style={{ transform: `translateX(-${currentIndex * (100 / reviews.length)}%)` }}
+        >
+          {reviews.map(([text, name, title], index) => (
+            <div className="testi-card" key={`${name}-${index}`}>
+              <div className="quote">"</div>
+              <p className="review">{text}</p>
+              <div className="stars">★★★★★</div>
+              <div className="person">
+                <div className="avatar">{name[0]}</div>
+                <div>
+                  <strong>{name}</strong>
+                  <br />
+                  <span>{title}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="testi-indicators">
+        {reviews.map((_, index) => (
+          <button
+            key={index}
+            className={`testi-indicator ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
             <div className="quote">“</div>
             <p className="review">{text}</p>
             <div className="stars">★★★★★</div>
