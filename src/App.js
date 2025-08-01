@@ -50,22 +50,71 @@ const BtnGhost = ({ onClick, children, small = false }) => (
 
 /*────────────────────  NAVBAR  ───────────────────────────────*/
 function NavBar({ onFormOpen, scrollToExpertise }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <nav className="navbar">
-      <Logo />
-      <ul className="menu">
-        <li>About <ArrowIcon /></li>
-        <li onClick={scrollToExpertise}>Services <ArrowIcon /></li>
-        <li>AI Tools <ArrowIcon /></li>
-        <li>Education <ArrowIcon /></li>
-        <li>Blog <ArrowIcon /></li>
-        <li>Portfolio <ArrowIcon /></li>
-      </ul>
-      <div className="right">
-        <input className="search" placeholder="Search" />
-        <BtnGhost onClick={onFormOpen}>Get a Free Consultation</BtnGhost>
-      </div>
-    </nav>
+    <>
+      <nav className="navbar">
+        <Logo />
+        
+        {/* Desktop Menu */}
+        <ul className="menu desktop-menu">
+          <li>About <ArrowIcon /></li>
+          <li onClick={scrollToExpertise}>Services <ArrowIcon /></li>
+          <li>AI Tools <ArrowIcon /></li>
+          <li>Education <ArrowIcon /></li>
+          <li>Blog <ArrowIcon /></li>
+          <li>Portfolio <ArrowIcon /></li>
+        </ul>
+        
+        {/* Desktop Right Section */}
+        <div className="right desktop-right">
+          <input className="search" placeholder="Search" />
+          <BtnGhost onClick={onFormOpen}>Get a Free Consultation</BtnGhost>
+        </div>
+        
+        {/* Mobile Hamburger Button */}
+        <button className="hamburger" onClick={toggleMobileMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+      
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMobileMenu}>
+          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-menu-header">
+              <Logo />
+              <button className="close-btn" onClick={closeMobileMenu}>×</button>
+            </div>
+            <ul className="mobile-menu-items">
+              <li onClick={closeMobileMenu}>About <ArrowIcon /></li>
+              <li onClick={() => { scrollToExpertise(); closeMobileMenu(); }}>Services <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>AI Tools <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Education <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Blog <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Portfolio <ArrowIcon /></li>
+            </ul>
+            <div className="mobile-menu-footer">
+              <input className="search mobile-search" placeholder="Search" />
+              <BtnGhost onClick={() => { onFormOpen(); closeMobileMenu(); }}>
+                Get a Free Consultation
+              </BtnGhost>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -529,33 +578,165 @@ const css = String.raw`
     position: sticky;
     top: 0;
     z-index: 1000;
-    flex-wrap: wrap; /* Allow wrapping of items */
+    position: relative;
   }
-  .menu {
+  
+  /* Desktop Menu */
+  .desktop-menu {
     display: flex;
     list-style: none;
     gap: 22px;
-    flex-wrap: wrap; /* Allow menu items to wrap */
   }
-  .menu li {
+  .desktop-menu li {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
   }
-  .right {
+  
+  /* Desktop Right Section */
+  .desktop-right {
     display: flex;
     gap: 15px;
     align-items: center;
-    flex-wrap: wrap; /* Allow buttons to wrap */
   }
+  
   .search {
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    max-width: 200px; /* Limit width on mobile */
-    flex: 1; /* Allow search to grow */
+    max-width: 200px;
+  }
+  
+  /* Hamburger Menu Button */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .hamburger span {
+    width: 24px;
+    height: 3px;
+    background: #2f6b48;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    display: none;
+  }
+  
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease forwards;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mobile-menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+  }
+  
+  .mobile-menu-items li {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .mobile-menu-items li:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .mobile-menu-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .mobile-search {
+    width: 100%;
+    max-width: none;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .desktop-menu {
+      display: none;
+    }
+    
+    .desktop-right {
+      display: none;
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+    
+    .mobile-menu-overlay {
+      display: block;
+    }
+  }
   }
 
   /* BUTTONS */
