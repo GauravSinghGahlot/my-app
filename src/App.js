@@ -578,7 +578,14 @@ const css = String.raw`
     position: sticky;
     top: 0;
     z-index: 1000;
-    position: relative;
+    min-height: 70px;
+    flex-wrap: nowrap;
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .navbar {
+      padding: 15px 20px;
+    }
   }
   
   /* Desktop Menu */
@@ -600,13 +607,37 @@ const css = String.raw`
     display: flex;
     gap: 15px;
     align-items: center;
+    flex-shrink: 0;
+    min-width: 0;
   }
   
   .search {
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    max-width: 200px;
+    width: 160px;
+    min-width: 120px;
+  }
+  
+  /* Adjust button text for smaller screens */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .desktop-right .btn.ghost {
+      font-size: 13px;
+      padding: 9px 16px;
+    }
+    .search {
+      width: 140px;
+    }
+  }
+  
+  @media (max-width: 900px) and (min-width: 769px) {
+    .desktop-right .btn.ghost {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+    .search {
+      width: 120px;
+    }
   }
   
   /* Hamburger Menu Button */
