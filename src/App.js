@@ -125,7 +125,7 @@ const Hero = ({ onFormOpen }) => (
       Empowering Businesses with <em>Future‑Ready Software Solutions</em>
     </h1>
     <p>
-      Custom‑built web &amp; mobile apps, enterprise platforms, and scalable
+      Custom‑built web &amp; mobile apps, enterprise platforms, and scalable
       digital products.
     </p>
     <div className="cta">
@@ -139,10 +139,10 @@ const Hero = ({ onFormOpen }) => (
 const TrustBand = () => (
   <section className="trust">
     <p>
-      Trusted by <em>Startups, Scaleups</em>, and <em>Enterprise</em> innovators
+      Trusted by <em>Startups, Scaleups</em>, and <em>Enterprise</em> innovators
     </p>
     <div className="brands">
-      {["yatra", "rapido", "innisfree", "godrej | PROPERTIES"].map((b) => (
+      {["yatra", "rapido", "innisfree", "godrej | PROPERTIES"].map((b) => (
         <span key={b}>{b}</span>
       ))}
     </div>
@@ -217,7 +217,7 @@ const CaseStudies = () => {
     ["/images/easymachine.jpg","Easy Machine – Rent & Buy Equipment","Your one‑stop platform for renting or purchasing heavy machinery, spare parts and more."],
     ["/images/niftytrader.jpg","Nifty Trader – Stock‑Market Suite","NSE option chain, GIFT Nifty, screeners and tools for Indian options traders."],
     ["/images/houseofbanaras.jpg","House of Banaras – Heritage Weaves","Simplicity meets elegance—sharing the timeless traditions and cultural richness of Banaras."],
-    ["/images/outlands.jpg","Outlands – Ultimate Frontier Expeditions","#Follow_the_feather to the world’s most isolated, unexplored territories."]
+    ["/images/outlands.jpg","Outlands – Ultimate Frontier Expeditions","#Follow_the_feather to the world's most isolated, unexplored territories."]
   ];
   const [idx,setIdx]=useState(0);
   const prev = () => setIdx(i => (i - 2 + cases.length) % cases.length);
@@ -257,7 +257,7 @@ const AICapabilities = () => {
   const cards = [
     ["/images/chatbot.jpg","Chatbots & NLP","30+ ready‑made AI solutions tailored to meet diverse business needs."],
     ["https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=60","Predictive Analytics","70+ partners delivering specialized AI expertise."],
-    ["/images/processautomation.jpg","Process Automation","A powerhouse of 5 000+ AI engineers ready to bring your vision to life."]
+    ["/images/processautomation.jpg","Process Automation","A powerhouse of 5 000+ AI engineers ready to bring your vision to life."]
   ];
   return (
     <section className="ai-section">
@@ -269,7 +269,7 @@ const AICapabilities = () => {
         systems—from intelligent automation and predictive analytics to
         personalized user experiences.
       </p>
-      <BtnGhost small>Explore AI Tools</BtnGhost>
+      <BtnGhost small>Explore AI Tools</BtnGhost>
       <div className="ai-grid">
         {cards.map(([img, title, desc]) => (
           <div className="ai-card" key={title}>
@@ -354,7 +354,7 @@ const Testimonials = () => {
       <h2>
         Trusted by <em>Leaders</em>
       </h2>
-      <p className="testi-tagline">Here’s what our founders say</p>
+      <p className="testi-tagline">Here's what our founders say</p>
       <div className="testi-carousel-container">
         <div 
           className="testi-carousel-track" 
@@ -390,32 +390,6 @@ const Testimonials = () => {
     </section>
   );
 };
-            <div className="quote">“</div>
-            <p className="review">{text}</p>
-            <div className="stars">★★★★★</div>
-            <div className="person">
-              <div className="avatar">{name[0]}</div>
-              <div>
-                <strong>{name}</strong>
-                <br />
-                <span>{title}</span>
-              </div>
-            </div>
-          </div>
-        ))}
-        <button className="testi-nav" onClick={next}>
-          <ArrowIcon />
-        </button>
-      </div>
-      <div className="testi-progress">
-        <span style={{ transform: `translateX(${idx * 100}%)` }} />
-      </div>
-    </section>
-  );
-};
-
-
-
 
 /*────────────────────  TECH CAPABILITIES  ─────────────────────*/
 const TechCapabilities = () => {
@@ -488,7 +462,7 @@ const FinalCTA = () => (
   <section className="cta-section">
     <div className="cta-text">
       <h2>
-        Let’s Build the <em>Future</em> of
+        Let's Build the <em>Future</em> of
         <br />
         Your <em>Business</em>
       </h2>
@@ -511,13 +485,13 @@ const Footer = () => (
           "Cloud Efficiency and Intelligence",
           "Emerging Tech",
           "Software Studio",
-          "Next Gen Talent",
+          "Next Gen Talent",
           "Marketing and Experience",
         ].map((t) => (
           <li key={t}>{t}</li>
         ))}
       </ul>
-      <div className="foot-contact">Contact US</div>
+      <div className="foot-contact">Contact US</div>
     </div>
   </footer>
 );
@@ -538,7 +512,7 @@ function FormPage({ goBack }) {
           Location:<input type="text" placeholder="Your Location" />
         </label>
         <label>
-          Contact Number:<input type="text" placeholder="Your Contact No." />
+          Contact Number:<input type="text" placeholder="Your Contact No." />
         </label>
         <button className="btn primary" type="submit">
           Submit
@@ -1296,54 +1270,60 @@ const css = String.raw`
     max-width: 640px;
     margin: 0 auto 50px;
   }
-  .testi-carousel {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    justify-content: center;
+  
+  .testi-carousel-container {
+    overflow: hidden;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
   }
-  .testi-nav {
-    background: transparent;
-    border: none;
-    color: #2f6b48;
-    font-size: 22px;
-    cursor: pointer;
+  
+  .testi-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 400%; /* 4 cards * 100% */
   }
+  
   .testi-card {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 24px;
-    width: 260px;
-    flex: 0 0 260px;
+    flex: 0 0 25%; /* Each card takes 25% of track width */
+    margin: 0 12px;
+    box-sizing: border-box;
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    min-height: 280px;
   }
+  
   .quote {
     font-size: 34px;
     color: #2f6b48;
   }
+  
   .review {
     font-size: 14px;
     line-height: 1.5;
     color: #444;
     flex-grow: 1;
   }
+  
   .stars {
     color: #2f6b48;
     font-size: 14px;
     font-weight: 700;
   }
+  
   .person {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 14px;
   }
+  
   .avatar {
     width: 34px;
     height: 34px;
@@ -1355,50 +1335,82 @@ const css = String.raw`
     justify-content: center;
     font-weight: 600;
   }
-  .testi-progress {
-    width: 120px;
-    height: 4px;
-    background: #d0d0d0;
-    margin: 24px auto 0;
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .testi-progress span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 25%;
-    height: 100%;
-    background: #2f6b48;
-    transition: transform .3s;
-  }
-    
-/* Ensure only one card visible on mobile */
-@media (max-width: 768px) {
-  .testi-carousel {
+  
+  .testi-indicators {
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    gap: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 30px;
+  }
+  
+  .testi-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: #d0d0d0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .testi-indicator.active {
+    background: #2f6b48;
+  }
+  
+  .testi-indicator:hover {
+    background: #2f6b48;
+    opacity: 0.7;
   }
 
-  .testi-card {
-    flex: 0 0 100%;
-    min-width: 100%;
-    max-width: 100%;
-    scroll-snap-align: center;
-    box-sizing: border-box;
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .testi-carousel-track {
+      width: 400%; /* Still 4 cards, but only 1 visible */
+    }
+    
+    .testi-card {
+      flex: 0 0 25%;
+      margin: 0 8px;
+    }
   }
-
-  .testi-nav {
-    display: none; /* Hide buttons on mobile */
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .testi-carousel-track {
+      width: 200%; /* Show 2 cards at a time */
+    }
+    
+    .testi-card {
+      flex: 0 0 50%;
+      margin: 0 10px;
+    }
   }
-}
-
+  
+  @media (min-width: 1025px) {
+    .testi-carousel-track {
+      width: 133.33%; /* Show 3 cards at a time */
+    }
+    
+    .testi-card {
+      flex: 0 0 33.33%;
+      margin: 0 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .testi-card {
+      padding: 20px;
+      margin: 0 6px;
+      min-height: 260px;
+    }
+    
+    .review {
+      font-size: 13px;
+    }
+    
+    .person {
+      font-size: 13px;
+    }
+  }
 
   /* TECH SECTION */
   .tech-section {
@@ -1639,46 +1651,3 @@ const css = String.raw`
     }
   }
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
