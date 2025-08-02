@@ -330,9 +330,6 @@ const Testimonials = () => {
   );
 };
 
-
-
-
 /*────────────────────  TECH CAPABILITIES  ─────────────────────*/
 const TechCapabilities = () => {
   const data = {
@@ -737,110 +734,32 @@ const css = String.raw`
   }
 
   /* CASE STUDIES */
-  /* CASE STUDIES */
-.case-section {
-  text-align: center;
-  padding: 100px 20px;
-}
-.case-section h2 {
-  font-size: 34px;
-  margin-bottom: 12px;
-}
-.case-section h2 em {
-  color: #2f6b48;
-}
-.case-tagline {
-  font-size: 16px;
-  color: #555;
-  max-width: 700px;
-  margin: 0 auto 50px;
-}
-.case-carousel {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: wrap; /* Allow wrapping */
-}
-
-.case-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 320px;
-  flex: 1 1 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.case-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
-}
-
-.case-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.case-body h3 {
-  font-size: 18px;
-  font-weight: 600;
-}
-.case-body p {
-  font-size: 14px;
-  line-height: 1.45;
-  color: #4a4a4a;
-}
-
-/* CASE NAV (optional buttons like arrows if used) */
-.case-nav {
-  background: transparent;
-  border: none;
-  color: #2f6b48;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .case-card {
-    width: 100%;
-    max-width: 100%;
-    margin: 10px 0;
+  .case-section {
+    text-align: center;
+    padding: 100px 20px;
   }
-}
-
-@media (max-width: 480px) {
   .case-section h2 {
-    font-size: 28px;
+    font-size: 34px;
+    margin-bottom: 12px;
+  }
+  .case-section h2 em {
+    color: #2f6b48;
   }
   .case-tagline {
-    font-size: 14px;
+    font-size: 16px;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 50px;
   }
   .case-carousel {
-    flex-direction: column;
+    display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 30px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Allow wrapping */
   }
-  .case-card img {
-    height: 160px;
-  }
-  .case-body h3 {
-    font-size: 16px;
-  }
-  .case-body p {
-    font-size: 13px;
-  }
-}
-
   .case-nav {
     background: transparent;
     border: none;
@@ -1079,32 +998,6 @@ const css = String.raw`
     background: #2f6b48;
     transition: transform .3s;
   }
-    
-/* Ensure only one card visible on mobile */
-@media (max-width: 768px) {
-  .testi-carousel {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .testi-card {
-    flex: 0 0 100%;
-    min-width: 100%;
-    max-width: 100%;
-    scroll-snap-align: center;
-    box-sizing: border-box;
-  }
-
-  .testi-nav {
-    display: none; /* Hide buttons on mobile */
-  }
-}
-
 
   /* TECH SECTION */
   .tech-section {
@@ -1345,8 +1238,6 @@ const css = String.raw`
     }
   }
 `;
-
-
 
 
 
