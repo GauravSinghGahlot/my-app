@@ -22,7 +22,10 @@ const ArrowIcon = ({ dir = "right" }) => (
     height="16"
     viewBox="0 0 14 14"
     fill="none"
-    style={{ transform: dir === "left" ? "rotate(180deg)" : undefined }}
+    style={{ 
+      transform: dir === "left" ? "rotate(180deg)" : 
+                dir === "down" ? "rotate(90deg)" : undefined 
+    }}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -50,22 +53,67 @@ const BtnGhost = ({ onClick, children, small = false }) => (
 
 /*────────────────────  NAVBAR  ───────────────────────────────*/
 function NavBar({ onFormOpen, scrollToExpertise }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <nav className="navbar">
-      <Logo />
-      <ul className="menu">
-        <li>About <ArrowIcon /></li>
-        <li onClick={scrollToExpertise}>Services <ArrowIcon /></li>
-        <li>AI Tools <ArrowIcon /></li>
-        <li>Education <ArrowIcon /></li>
-        <li>Blog <ArrowIcon /></li>
-        <li>Portfolio <ArrowIcon /></li>
-      </ul>
-      <div className="right">
-        <input className="search" placeholder="Search" />
-        <BtnGhost onClick={onFormOpen}>Get a Free Consultation</BtnGhost>
-      </div>
-    </nav>
+    <>
+      <nav className="navbar">
+        <Logo />
+        
+        {/* Desktop Menu */}
+        <ul className="menu desktop-menu">
+          <li>About <ArrowIcon /></li>
+          <li onClick={scrollToExpertise}>Services <ArrowIcon /></li>
+          <li>AI Tools <ArrowIcon /></li>
+          <li>Education <ArrowIcon /></li>
+          <li>Blog <ArrowIcon /></li>
+          <li>Portfolio <ArrowIcon /></li>
+        </ul>
+        
+        {/* Desktop Right Section */}
+        <div className="right desktop-right">
+          <input className="search" placeholder="Search" />
+          <BtnGhost onClick={onFormOpen}>Get a Free Consultation</BtnGhost>
+        </div>
+
+        {/* Mobile Hamburger Button */}
+        <button className="hamburger" onClick={toggleMobileMenu}>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMobileMenu}>
+          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            <ul className="mobile-menu-items">
+              <li onClick={closeMobileMenu}>About <ArrowIcon /></li>
+              <li onClick={() => { scrollToExpertise(); closeMobileMenu(); }}>Services <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>AI Tools <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Education <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Blog <ArrowIcon /></li>
+              <li onClick={closeMobileMenu}>Portfolio <ArrowIcon /></li>
+            </ul>
+            <div className="mobile-menu-actions">
+              <input className="search mobile-search" placeholder="Search" />
+              <BtnGhost onClick={() => { onFormOpen(); closeMobileMenu(); }}>
+                Get a Free Consultation
+              </BtnGhost>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -92,10 +140,17 @@ const TrustBand = () => (
     <p>
       Trusted by <em>Startups, Scaleups</em>, and <em>Enterprise</em> innovators
     </p>
-    <div className="brands">
-      {["yatra", "rapido", "innisfree", "godrej | PROPERTIES"].map((b) => (
-        <span key={b}>{b}</span>
-      ))}
+    <div className="brands-carousel">
+      <div className="brands-track">
+        {/* First set of brands */}
+        {["Yatra", "Rapido", "Innisfree", "Godrej | PROPERTIES"].map((brand, i) => (
+          <span key={`brand-1-${i}`} className="brand-item">{brand}</span>
+        ))}
+        {/* Duplicate set for seamless loop */}
+        {["Yatra", "Rapido", "Innisfree", "Godrej | PROPERTIES"].map((brand, i) => (
+          <span key={`brand-2-${i}`} className="brand-item">{brand}</span>
+        ))}
+      </div>
     </div>
   </section>
 );
@@ -109,6 +164,14 @@ const Expertise = () => {
     "UI/UX Design",
     "Cloud & DevOps",
     "AI & Automation",
+  ];
+  const descriptions = [
+    "We build tailored software solutions that align perfectly with your business goals, ensuring scalability and performance.",
+    "Our team crafts responsive, secure, and modern websites designed to deliver exceptional user experiences across all devices.",
+    "From concept to deployment, we create mobile apps that are intuitive, robust, and optimized for both iOS and Android platforms.",
+    "We design user-friendly interfaces and seamless experiences that keep your users engaged and coming back for more.",
+    "Boost efficiency and reliability with our cloud solutions and DevOps strategies that automate and streamline your operations.",
+    "We integrate intelligent automation and AI solutions to enhance productivity, reduce errors, and drive innovation in your workflows."
   ];
   return (
     <section className="expertise">
@@ -124,7 +187,7 @@ const Expertise = () => {
           <div className="card" key={i}>
             <div className="icon-box">{t.slice(0, 2)}</div>
             <h3>{t}</h3>
-            <p>This is a sample description for {t.replace("Development", "Dev")}.</p>
+            <p>{descriptions[i]}</p>
           </div>
         ))}
       </div>
@@ -256,10 +319,17 @@ const StrategicPartners = () => {
         deliver reliable, future‑ready solutions that drive mutual growth and
         innovation.
       </p>
-      <div className="partners-logos">
-        {logos.map(([alt, src]) => (
-          <img key={alt} src={src} alt={alt} />
-        ))}
+      <div className="partners-carousel">
+        <div className="partners-track">
+          {/* First set of logos */}
+          {logos.map(([alt, src], i) => (
+            <img key={`partner-1-${i}`} src={src} alt={alt} className="partner-logo" />
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {logos.map(([alt, src], i) => (
+            <img key={`partner-2-${i}`} src={src} alt={alt} className="partner-logo" />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -292,7 +362,6 @@ const Testimonials = () => {
   const [idx, setIdx] = useState(0);
   const prev = () => setIdx((i) => (i ? i - 1 : reviews.length - 1));
   const next = () => setIdx((i) => (i + 1) % reviews.length);
-  const vis = [0, 1, 2, 3].map((o) => reviews[(idx + o) % reviews.length]);
 
   return (
     <section className="testi-section">
@@ -304,21 +373,27 @@ const Testimonials = () => {
         <button className="testi-nav" onClick={prev}>
           <ArrowIcon dir="left" />
         </button>
-        {vis.map(([text, name, title]) => (
-          <div className="testi-card" key={name}>
-            <div className="quote">“</div>
-            <p className="review">{text}</p>
-            <div className="stars">★★★★★</div>
-            <div className="person">
-              <div className="avatar">{name[0]}</div>
-              <div>
-                <strong>{name}</strong>
-                <br />
-                <span>{title}</span>
+        <div className="testi-cards-container">
+          {reviews.map(([text, name, title], i) => (
+            <div 
+              className={`testi-card ${i === idx ? 'active' : ''}`} 
+              key={name}
+              style={{ transform: `translateX(-${idx * 100}%)` }}
+            >
+              <div className="quote">"</div>
+              <p className="review">{text}</p>
+              <div className="stars">★★★★★</div>
+              <div className="person">
+                <div className="avatar">{name[0]}</div>
+                <div>
+                  <strong>{name}</strong>
+                  <br />
+                  <span>{title}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
         <button className="testi-nav" onClick={next}>
           <ArrowIcon />
         </button>
@@ -333,64 +408,279 @@ const Testimonials = () => {
 /*────────────────────  TECH CAPABILITIES  ─────────────────────*/
 const TechCapabilities = () => {
   const data = {
-    Frontend: [
-      "https://cdn.worldvectorlogo.com/logos/html-1.svg",
-      "https://cdn.worldvectorlogo.com/logos/css-3.svg",
-      "https://cdn.worldvectorlogo.com/logos/react-2.svg",
-      "https://cdn.worldvectorlogo.com/logos/angular-icon-1.svg",
-    ],
     "UI/UX": [
-      "https://cdn.worldvectorlogo.com/logos/figma-1.svg",
-      "https://cdn.worldvectorlogo.com/logos/adobe-xd-1.svg",
-      "https://cdn.worldvectorlogo.com/logos/sketch-2.svg",
+      { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-1.svg" },
+      { name: "Adobe XD", logo: "https://cdn.worldvectorlogo.com/logos/adobe-xd-1.svg" },
+      { name: "Sketch", logo: "https://cdn.worldvectorlogo.com/logos/sketch-2.svg" },
+      { name: "InVision", logo: "https://cdn.worldvectorlogo.com/logos/invision.svg" },
+      { name: "Framer", logo: "https://cdn.worldvectorlogo.com/logos/framer-logo.svg" },
+      { name: "Principle", logo: "https://cdn.worldvectorlogo.com/logos/principle.svg" }
     ],
-    Database: [
-      "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg",
-      "https://cdn.worldvectorlogo.com/logos/postgresql.svg",
-      "https://cdn.worldvectorlogo.com/logos/mysql-6.svg",
+    Frontend: [
+      { name: "React", logo: "https://cdn.worldvectorlogo.com/logos/react-2.svg" },
+      { name: "Angular", logo: "https://cdn.worldvectorlogo.com/logos/angular-icon-1.svg" },
+      { name: "Vue.js", logo: "https://cdn.worldvectorlogo.com/logos/vue-9.svg" },
+      { name: "HTML5", logo: "https://cdn.worldvectorlogo.com/logos/html-1.svg" },
+      { name: "CSS3", logo: "https://cdn.worldvectorlogo.com/logos/css-3.svg" },
+      { name: "TypeScript", logo: "https://cdn.worldvectorlogo.com/logos/typescript.svg" }
     ],
     Backend: [
-      "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg",
-      "https://cdn.worldvectorlogo.com/logos/express-109.svg",
-      "https://cdn.worldvectorlogo.com/logos/django-community.svg",
+      { name: "Node.js", logo: "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" },
+      { name: "Django", logo: "https://cdn.worldvectorlogo.com/logos/django-community.svg" },
+      { name: "Laravel", logo: "https://cdn.worldvectorlogo.com/logos/laravel-2.svg" },
+      { name: "Express.js", logo: "https://cdn.worldvectorlogo.com/logos/express-109.svg" },
+      { name: "Spring Boot", logo: "https://cdn.worldvectorlogo.com/logos/spring-3.svg" },
+      { name: "FastAPI", logo: "https://cdn.worldvectorlogo.com/logos/fastapi-1.svg" }
+    ],
+    Mobile: [
+      { name: "Flutter", logo: "https://cdn.worldvectorlogo.com/logos/flutter.svg" },
+      { name: "React Native", logo: "https://cdn.worldvectorlogo.com/logos/react-native-1.svg" },
+      { name: "Swift", logo: "https://cdn.worldvectorlogo.com/logos/swift-15.svg" },
+      { name: "Kotlin", logo: "https://cdn.worldvectorlogo.com/logos/kotlin-1.svg" },
+      { name: "Xamarin", logo: "https://cdn.worldvectorlogo.com/logos/xamarin.svg" },
+      { name: "Ionic", logo: "https://cdn.worldvectorlogo.com/logos/ionic-1.svg" }
+    ],
+    Database: [
+      { name: "MySQL", logo: "https://cdn.worldvectorlogo.com/logos/mysql-6.svg" },
+      { name: "PostgreSQL", logo: "https://cdn.worldvectorlogo.com/logos/postgresql.svg" },
+      { name: "MongoDB", logo: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg" },
+      { name: "Redis", logo: "https://cdn.worldvectorlogo.com/logos/redis.svg" },
+      { name: "Firebase", logo: "https://cdn.worldvectorlogo.com/logos/firebase-1.svg" },
+      { name: "Supabase", logo: "https://cdn.worldvectorlogo.com/logos/supabase-icon.svg" }
+    ],
+    Cloud: [
+      { name: "AWS", logo: "https://cdn.worldvectorlogo.com/logos/amazon-web-services-1.svg" },
+      { name: "Azure", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-azure-3.svg" },
+      { name: "Google Cloud", logo: "https://cdn.worldvectorlogo.com/logos/google-cloud-1.svg" },
+      { name: "DigitalOcean", logo: "https://cdn.worldvectorlogo.com/logos/digitalocean.svg" },
+      { name: "Heroku", logo: "https://cdn.worldvectorlogo.com/logos/heroku-4.svg" },
+      { name: "Vercel", logo: "https://cdn.worldvectorlogo.com/logos/vercel.svg" }
+    ],
+    DevOps: [
+      { name: "AWS", logo: "https://cdn.worldvectorlogo.com/logos/amazon-web-services-1.svg" },
+      { name: "Microsoft Azure", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-azure-3.svg" },
+      { name: "Azure", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-azure-3.svg" },
+      { name: "Kubernetes", logo: "https://cdn.worldvectorlogo.com/logos/kubernetes.svg" },
+      { name: "Docker", logo: "https://cdn.worldvectorlogo.com/logos/docker.svg" },
+      { name: "Prometheus", logo: "https://cdn.worldvectorlogo.com/logos/prometheus.svg" },
+      { name: "Jenkins", logo: "https://cdn.worldvectorlogo.com/logos/jenkins-1.svg" },
+      { name: "CI/CD", logo: "https://cdn.worldvectorlogo.com/logos/github-actions.svg" },
+      { name: "Terraform", logo: "https://cdn.worldvectorlogo.com/logos/terraform-enterprise.svg" },
+      { name: "Ansible", logo: "https://cdn.worldvectorlogo.com/logos/ansible.svg" },
+      { name: "Git", logo: "https://cdn.worldvectorlogo.com/logos/git-icon.svg" },
+      { name: "Docker Container", logo: "https://cdn.worldvectorlogo.com/logos/docker.svg" },
+      { name: "Apache", logo: "https://cdn.worldvectorlogo.com/logos/apache.svg" },
+      { name: "Google Cloud", logo: "https://cdn.worldvectorlogo.com/logos/google-cloud-1.svg" }
+    ],
+    "Monitoring & Logging": [
+      { name: "Grafana", logo: "https://cdn.worldvectorlogo.com/logos/grafana.svg" },
+      { name: "Prometheus", logo: "https://cdn.worldvectorlogo.com/logos/prometheus.svg" },
+      { name: "ELK Stack", logo: "https://cdn.worldvectorlogo.com/logos/elastic-elasticsearch.svg" },
+      { name: "New Relic", logo: "https://cdn.worldvectorlogo.com/logos/new-relic.svg" },
+      { name: "Datadog", logo: "https://cdn.worldvectorlogo.com/logos/datadog.svg" },
+      { name: "Sentry", logo: "https://cdn.worldvectorlogo.com/logos/sentry-3.svg" }
     ],
     Security: [
-      "https://cdn.worldvectorlogo.com/logos/jwt-3.svg",
-      "https://cdn.worldvectorlogo.com/logos/oauth-2.svg",
-      "https://cdn.worldvectorlogo.com/logos/let-s-encrypt.svg",
+      { name: "OAuth", logo: "https://cdn.worldvectorlogo.com/logos/oauth-2.svg" },
+      { name: "JWT", logo: "https://cdn.worldvectorlogo.com/logos/jwt-3.svg" },
+      { name: "SSL/TLS", logo: "https://cdn.worldvectorlogo.com/logos/let-s-encrypt.svg" },
+      { name: "Auth0", logo: "https://cdn.worldvectorlogo.com/logos/auth0.svg" },
+      { name: "Okta", logo: "https://cdn.worldvectorlogo.com/logos/okta-2.svg" },
+      { name: "HashiCorp Vault", logo: "https://cdn.worldvectorlogo.com/logos/vault-enterprise.svg" }
     ],
+    CMS: [
+      { name: "WordPress", logo: "https://cdn.worldvectorlogo.com/logos/wordpress-blue.svg" },
+      { name: "Strapi", logo: "https://cdn.worldvectorlogo.com/logos/strapi-2.svg" },
+      { name: "Contentful", logo: "https://cdn.worldvectorlogo.com/logos/contentful.svg" },
+      { name: "Sanity", logo: "https://cdn.worldvectorlogo.com/logos/sanity.svg" },
+      { name: "Ghost", logo: "https://cdn.worldvectorlogo.com/logos/ghost.svg" },
+      { name: "Drupal", logo: "https://cdn.worldvectorlogo.com/logos/drupal.svg" }
+    ],
+    "CRM/ERP/Platforms": [
+      { name: "Salesforce", logo: "https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" },
+      { name: "Zoho", logo: "https://cdn.worldvectorlogo.com/logos/zoho.svg" },
+      { name: "SAP", logo: "https://cdn.worldvectorlogo.com/logos/sap-3.svg" },
+      { name: "HubSpot", logo: "https://cdn.worldvectorlogo.com/logos/hubspot.svg" },
+      { name: "Microsoft Dynamics", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-dynamics-365.svg" },
+      { name: "Odoo", logo: "https://cdn.worldvectorlogo.com/logos/odoo.svg" }
+    ],
+    "Collaboration Tools": [
+      { name: "Slack", logo: "https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg" },
+      { name: "Microsoft Teams", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-teams-1.svg" },
+      { name: "Zoom", logo: "https://cdn.worldvectorlogo.com/logos/zoom-icon.svg" },
+      { name: "Jira", logo: "https://cdn.worldvectorlogo.com/logos/jira-1.svg" },
+      { name: "Confluence", logo: "https://cdn.worldvectorlogo.com/logos/confluence-1.svg" },
+      { name: "Notion", logo: "https://cdn.worldvectorlogo.com/logos/notion-logo-1.svg" }
+    ]
   };
-  const cats = Object.keys(data);
-  const [active, setActive] = useState("Database");
+  
+  const [selectedCategory, setSelectedCategory] = useState("DevOps");
+  
+  const categories = Object.keys(data);
+  
   return (
     <section className="tech-section">
       <h2>
-        Driving Digital <em>Transformation</em> through advanced{" "}
-        <em>Technology</em> Capabilities.
+        Driving Digital <em>Transformation</em> through Advanced{" "}
+        <em>Technology</em> Capabilities
       </h2>
-      <div className="tech-inner">
-        <div className="tech-cats">
-          {cats.map((c) => (
+      <p className="tech-subtitle">
+        Explore our comprehensive technology stack across all domains of modern software development
+      </p>
+      <div className="tech-layout">
+        <div className="tech-categories">
+          {categories.map((category) => (
             <button
-              key={c}
-              className={`tech-pill${active === c ? " active" : ""}`}
-              onClick={() => setActive(c)}
+              key={category}
+              className={`tech-category-btn ${selectedCategory === category ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(category)}
             >
-              {c}
+              {category}
             </button>
           ))}
         </div>
-        <div className="tech-content">
-          <p>
-            Rationalize your data migration by selecting a database that offers
-            you the most in functionality and convenience.
-          </p>
-          <div className="tech-logos">
-            {data[active].map((src) => (
-              <img key={src} src={src} alt={active} />
+        <div className="tech-tools">
+          <div className="tech-tools-grid">
+            {data[selectedCategory].map((tech) => (
+              <div key={tech.name} className="tech-tool-card">
+                <img src={tech.logo} alt={tech.name} className="tech-tool-logo" />
+                <span className="tech-tool-name">{tech.name}</span>
+              </div>
             ))}
           </div>
         </div>
+      </div>
+    </section>
+  );
+};
+
+/*────────────────────  TECH CAPABILITIES (OLD VERSION - REMOVE)  ─────────────────────*/
+const TechCapabilitiesOld = () => {
+  const data = {
+    "UI/UX": [
+      { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-1.svg" },
+      { name: "Adobe XD", logo: "https://cdn.worldvectorlogo.com/logos/adobe-xd-1.svg" },
+      { name: "Sketch", logo: "https://cdn.worldvectorlogo.com/logos/sketch-2.svg" },
+      { name: "InVision", logo: "https://cdn.worldvectorlogo.com/logos/invision.svg" },
+      { name: "Framer", logo: "https://cdn.worldvectorlogo.com/logos/framer-logo.svg" },
+      { name: "Principle", logo: "https://cdn.worldvectorlogo.com/logos/principle.svg" }
+    ],
+    Frontend: [
+      { name: "React", logo: "https://cdn.worldvectorlogo.com/logos/react-2.svg" },
+      { name: "Angular", logo: "https://cdn.worldvectorlogo.com/logos/angular-icon-1.svg" },
+      { name: "Vue.js", logo: "https://cdn.worldvectorlogo.com/logos/vue-9.svg" },
+      { name: "HTML5", logo: "https://cdn.worldvectorlogo.com/logos/html-1.svg" },
+      { name: "CSS3", logo: "https://cdn.worldvectorlogo.com/logos/css-3.svg" },
+      { name: "TypeScript", logo: "https://cdn.worldvectorlogo.com/logos/typescript.svg" }
+    ],
+    Backend: [
+      { name: "Node.js", logo: "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" },
+      { name: "Django", logo: "https://cdn.worldvectorlogo.com/logos/django-community.svg" },
+      { name: "Laravel", logo: "https://cdn.worldvectorlogo.com/logos/laravel-2.svg" },
+      { name: "Express.js", logo: "https://cdn.worldvectorlogo.com/logos/express-109.svg" },
+      { name: "Spring Boot", logo: "https://cdn.worldvectorlogo.com/logos/spring-3.svg" },
+      { name: "FastAPI", logo: "https://cdn.worldvectorlogo.com/logos/fastapi-1.svg" }
+    ],
+    Mobile: [
+      { name: "Flutter", logo: "https://cdn.worldvectorlogo.com/logos/flutter.svg" },
+      { name: "React Native", logo: "https://cdn.worldvectorlogo.com/logos/react-native-1.svg" },
+      { name: "Swift", logo: "https://cdn.worldvectorlogo.com/logos/swift-15.svg" },
+      { name: "Kotlin", logo: "https://cdn.worldvectorlogo.com/logos/kotlin-1.svg" },
+      { name: "Xamarin", logo: "https://cdn.worldvectorlogo.com/logos/xamarin.svg" },
+      { name: "Ionic", logo: "https://cdn.worldvectorlogo.com/logos/ionic-1.svg" }
+    ],
+    Database: [
+      { name: "MySQL", logo: "https://cdn.worldvectorlogo.com/logos/mysql-6.svg" },
+      { name: "PostgreSQL", logo: "https://cdn.worldvectorlogo.com/logos/postgresql.svg" },
+      { name: "MongoDB", logo: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg" },
+      { name: "Redis", logo: "https://cdn.worldvectorlogo.com/logos/redis.svg" },
+      { name: "Firebase", logo: "https://cdn.worldvectorlogo.com/logos/firebase-1.svg" },
+      { name: "Supabase", logo: "https://cdn.worldvectorlogo.com/logos/supabase-icon.svg" }
+    ],
+    Cloud: [
+      { name: "AWS", logo: "https://cdn.worldvectorlogo.com/logos/amazon-web-services-1.svg" },
+      { name: "Azure", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-azure-3.svg" },
+      { name: "Google Cloud", logo: "https://cdn.worldvectorlogo.com/logos/google-cloud-1.svg" },
+      { name: "DigitalOcean", logo: "https://cdn.worldvectorlogo.com/logos/digitalocean.svg" },
+      { name: "Heroku", logo: "https://cdn.worldvectorlogo.com/logos/heroku-4.svg" },
+      { name: "Vercel", logo: "https://cdn.worldvectorlogo.com/logos/vercel.svg" }
+    ],
+    DevOps: [
+      { name: "GitHub Actions", logo: "https://cdn.worldvectorlogo.com/logos/github-actions.svg" },
+      { name: "GitLab CI", logo: "https://cdn.worldvectorlogo.com/logos/gitlab.svg" },
+      { name: "Terraform", logo: "https://cdn.worldvectorlogo.com/logos/terraform-enterprise.svg" }
+    ],
+    "Monitoring & Logging": [
+      { name: "Grafana", logo: "https://cdn.worldvectorlogo.com/logos/grafana.svg" },
+      { name: "Prometheus", logo: "https://cdn.worldvectorlogo.com/logos/prometheus.svg" },
+      { name: "ELK Stack", logo: "https://cdn.worldvectorlogo.com/logos/elastic-elasticsearch.svg" },
+      { name: "New Relic", logo: "https://cdn.worldvectorlogo.com/logos/new-relic.svg" },
+      { name: "Datadog", logo: "https://cdn.worldvectorlogo.com/logos/datadog.svg" },
+      { name: "Sentry", logo: "https://cdn.worldvectorlogo.com/logos/sentry-3.svg" }
+    ],
+    Security: [
+      { name: "OAuth", logo: "https://cdn.worldvectorlogo.com/logos/oauth-2.svg" },
+      { name: "JWT", logo: "https://cdn.worldvectorlogo.com/logos/jwt-3.svg" },
+      { name: "SSL/TLS", logo: "https://cdn.worldvectorlogo.com/logos/let-s-encrypt.svg" },
+      { name: "Auth0", logo: "https://cdn.worldvectorlogo.com/logos/auth0.svg" },
+      { name: "Okta", logo: "https://cdn.worldvectorlogo.com/logos/okta-2.svg" },
+      { name: "HashiCorp Vault", logo: "https://cdn.worldvectorlogo.com/logos/vault-enterprise.svg" }
+    ],
+    CMS: [
+      { name: "WordPress", logo: "https://cdn.worldvectorlogo.com/logos/wordpress-blue.svg" },
+      { name: "Strapi", logo: "https://cdn.worldvectorlogo.com/logos/strapi-2.svg" },
+      { name: "Contentful", logo: "https://cdn.worldvectorlogo.com/logos/contentful.svg" },
+      { name: "Sanity", logo: "https://cdn.worldvectorlogo.com/logos/sanity.svg" },
+      { name: "Ghost", logo: "https://cdn.worldvectorlogo.com/logos/ghost.svg" },
+      { name: "Drupal", logo: "https://cdn.worldvectorlogo.com/logos/drupal.svg" }
+    ],
+    "CRM/ERP/Platforms": [
+      { name: "Salesforce", logo: "https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" },
+      { name: "Zoho", logo: "https://cdn.worldvectorlogo.com/logos/zoho.svg" },
+      { name: "SAP", logo: "https://cdn.worldvectorlogo.com/logos/sap-3.svg" },
+      { name: "HubSpot", logo: "https://cdn.worldvectorlogo.com/logos/hubspot.svg" },
+      { name: "Microsoft Dynamics", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-dynamics-365.svg" },
+      { name: "Odoo", logo: "https://cdn.worldvectorlogo.com/logos/odoo.svg" }
+    ]
+  };
+  
+  const [expandedCategory, setExpandedCategory] = useState("DevOps");
+  
+  const toggleCategory = (category) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
+  };
+  
+  return (
+    <section className="tech-section">
+      <h2>
+        Driving Digital <em>Transformation</em> through Advanced{" "}
+        <em>Technology</em> Capabilities
+      </h2>
+      <p className="tech-subtitle">
+        Explore our comprehensive technology stack across all domains of modern software development
+      </p>
+      <div className="tech-accordion">
+        {Object.entries(data).map(([category, technologies]) => (
+          <div key={category} className="tech-category">
+            <button 
+              className={`tech-category-header ${expandedCategory === category ? 'expanded' : ''}`}
+              onClick={() => toggleCategory(category)}
+            >
+              <span className="tech-category-title">{category}</span>
+              <ArrowIcon dir={expandedCategory === category ? "down" : "right"} />
+            </button>
+            <div className={`tech-category-content ${expandedCategory === category ? 'expanded' : ''}`}>
+              <div className="tech-grid">
+                {technologies.map((tech) => (
+                  <div key={tech.name} className="tech-item">
+                    <img src={tech.logo} alt={tech.name} className="tech-logo" />
+                    <span className="tech-name">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -526,33 +816,146 @@ const css = String.raw`
     position: sticky;
     top: 0;
     z-index: 1000;
-    flex-wrap: wrap; /* Allow wrapping of items */
+    position: relative;
   }
-  .menu {
+  
+  .desktop-menu {
     display: flex;
     list-style: none;
     gap: 22px;
-    flex-wrap: wrap; /* Allow menu items to wrap */
   }
-  .menu li {
+  
+  .desktop-menu li {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
+    transition: color 0.3s ease;
   }
-  .right {
+  
+  .desktop-menu li:hover {
+    color: #2f6b48;
+  }
+  
+  .desktop-right {
     display: flex;
     gap: 15px;
     align-items: center;
-    flex-wrap: wrap; /* Allow buttons to wrap */
   }
+  
   .search {
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    max-width: 200px; /* Limit width on mobile */
-    flex: 1; /* Allow search to grow */
+    width: 200px;
+  }
+
+  /* Hamburger Menu Styles */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #2f6b48;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger-line.open:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .hamburger-line.open:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-line.open:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 80px 30px 30px;
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease-out forwards;
+    overflow-y: auto;
+  }
+
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .mobile-menu-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .mobile-menu-items li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+
+  .mobile-menu-items li:hover {
+    color: #2f6b48;
+  }
+
+  .mobile-menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile-search {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
   }
 
   /* BUTTONS */
@@ -623,13 +1026,40 @@ const css = String.raw`
     font-size: 24px;
     margin-bottom: 26px;
   }
-  .brands {
+  .brands-carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+  }
+  .brands-track {
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    animation: scroll-brands 20s linear infinite;
+    width: fit-content;
+  }
+  .brand-item {
     color: #555;
-    font-size: 24px; /* Adjusted font size and gap */
+    font-size: 24px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 0 40px;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+  }
+  .brand-item:hover {
+    color: #2f6b48;
+  }
+  .brands-carousel:hover .brands-track {
+    animation-play-state: paused;
+  }
+  @keyframes scroll-brands {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   /* EXPERTISE */
@@ -805,13 +1235,16 @@ const css = String.raw`
     text-align: center;
     color: #fff;
     padding: 100px 20px;
-    background: #093322 url('https://images.unsplash.com/photo-1505935428862-770b6f24f629?auto=format&fit=crop&w=1200&q=60') center/cover;
+    background: #093322 url('/images/ai-background screen.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .ai-section::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .45);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(15, 57, 39, 0.4));
   }
   .ai-section > * {
     position: relative;
@@ -887,19 +1320,40 @@ const css = String.raw`
     max-width: 780px;
     margin: 0 auto 50px;
   }
-  .partners-logos {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    flex-wrap: wrap;
+  .partners-carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
   }
-  .partners-logos img {
+  .partners-track {
+    display: flex;
+    animation: scroll-partners 25s linear infinite;
+    width: fit-content;
+    align-items: center;
+  }
+  .partner-logo {
     height: 34px;
     filter: grayscale(100%);
-    transition: filter .3s;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    margin: 0 60px;
+    flex-shrink: 0;
   }
-  .partners-logos img:hover {
+  .partner-logo:hover {
     filter: none;
+    transform: scale(1.1);
+  }
+  .partners-carousel:hover .partners-track {
+    animation-play-state: paused;
+  }
+  @keyframes scroll-partners {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   /* TESTIMONIALS */
@@ -924,10 +1378,11 @@ const css = String.raw`
   .testi-carousel {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    overflow: hidden;
   }
   .testi-nav {
     background: transparent;
@@ -935,28 +1390,46 @@ const css = String.raw`
     color: #2f6b48;
     font-size: 22px;
     cursor: pointer;
+    flex-shrink: 0;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+  }
+  .testi-nav:hover {
+    background-color: rgba(47, 107, 72, 0.1);
+  }
+  .testi-cards-container {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    overflow: hidden;
+    position: relative;
   }
   .testi-card {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 24px;
-    width: 260px;
-    flex: 0 0 260px;
+    width: 100%;
+    flex: 0 0 100%;
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   .quote {
     font-size: 34px;
     color: #2f6b48;
+    line-height: 1;
   }
   .review {
     font-size: 14px;
     line-height: 1.5;
     color: #444;
     flex-grow: 1;
+    min-height: 60px;
   }
   .stars {
     color: #2f6b48;
@@ -979,9 +1452,10 @@ const css = String.raw`
     align-items: center;
     justify-content: center;
     font-weight: 600;
+    flex-shrink: 0;
   }
   .testi-progress {
-    width: 120px;
+    width: 100px;
     height: 4px;
     background: #d0d0d0;
     margin: 24px auto 0;
@@ -993,7 +1467,7 @@ const css = String.raw`
     position: absolute;
     top: 0;
     left: 0;
-    width: 25%;
+    width: calc(100% / 4);
     height: 100%;
     background: #2f6b48;
     transition: transform .3s;
@@ -1008,69 +1482,206 @@ const css = String.raw`
   }
   .tech-section h2 {
     font-size: 34px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
-  .tech-inner {
+  .tech-section h2 em {
+    color: #2f6b48;
+  }
+  .tech-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* NEW LAYOUT STYLES */
+  .tech-layout {
     display: flex;
-    gap: 40px;
-    justify-content: center;
+    gap: 60px;
     align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
   }
-  .tech-cats {
+  
+  .tech-categories {
+    flex: 0 0 280px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    position: relative;
+    gap: 12px;
   }
-  .tech-cats::after {
-    content: "";
-    position: absolute;
-    right: -20px;
-    top: 0;
-    width: 2px;
-    height: 100%;
-    background: #2f6b48;
-  }
-  .tech-pill {
-    width: 110px;
-    padding: 8px;
-    border-radius: 30px;
-    border: 2px solid #2f6b48;
+  
+  .tech-category-btn {
     background: #fff;
-    color: #2f6b48;
-    font-size: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 25px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a5568;
     cursor: pointer;
-    transition: .25s;
+    transition: all 0.3s ease;
+    text-align: left;
+    white-space: nowrap;
   }
-  .tech-pill.active {
+  
+  .tech-category-btn:hover {
+    border-color: #2f6b48;
+    color: #2f6b48;
+    transform: translateX(4px);
+  }
+  
+  .tech-category-btn.active {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    color: #fff;
+    transform: translateX(4px);
+  }
+  
+  .tech-tools {
+    flex: 1;
+    min-height: 400px;
+  }
+  
+  .tech-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+  }
+  
+  .tech-tool-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .tech-tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(47, 107, 72, 0.15);
+    border-color: #2f6b48;
+  }
+  
+  .tech-tool-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease;
+  }
+  
+  .tech-tool-card:hover .tech-tool-logo {
+    filter: none;
+  }
+  
+  .tech-tool-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2d3748;
+    line-height: 1.3;
+  }
+  
+  /* OLD ACCORDION STYLES (KEEP FOR FALLBACK) */
+  .tech-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+    display: none; /* Hide old version */
+  }
+  .tech-category {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  .tech-category-header {
+    width: 100%;
+    padding: 20px 24px;
+    background: #fff;
+    border: 2px solid #2f6b48;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2f6b48;
+  }
+  .tech-category-header:hover {
     background: #2f6b48;
     color: #fff;
   }
-  .tech-content {
-    text-align: left;
+  .tech-category-header.expanded {
+    background: #2f6b48;
+    color: #fff;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .tech-category-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .tech-category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #f8f9fa;
+  }
+  .tech-category-content.expanded {
+    max-height: 500px;
+    padding: 24px;
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+  }
+  .tech-item {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    max-width: 600px;
-  }
-  .tech-content p {
-    font-size: 16px;
-    color: #444;
-    line-height: 1.6;
-  }
-  .tech-logos {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
     align-items: center;
+    text-align: center;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
-  .tech-logos img {
-    height: 54px;
-    filter: grayscale(100%);
-    transition: filter .3s;
+  .tech-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(47, 107, 72, 0.15);
+    border-color: #2f6b48;
   }
-  .tech-logos img:hover {
+  .tech-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease;
+  }
+  .tech-item:hover .tech-logo {
     filter: none;
+  }
+  .tech-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.2;
   }
 
   /* FINAL CTA */
@@ -1166,13 +1777,35 @@ const css = String.raw`
   /* Media Queries for Responsiveness */
   @media (max-width: 768px) {
     .navbar {
-      flex-direction: column;
-      align-items: flex-start;
+      padding: 15px 20px;
     }
-    .menu {
-      flex-direction: column;
-      gap: 10px;
+    
+    /* Hide desktop menu and show hamburger */
+    .desktop-menu,
+    .desktop-right {
+      display: none;
     }
+    
+    .hamburger {
+      display: flex;
+    }
+    
+    /* Show mobile menu overlay */
+    .mobile-menu-overlay {
+      display: block;
+    }
+    
+    .mobile-menu {
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .btn.ghost {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 20px;
+    }
+    
     .hero h1 {
       font-size: 32px;
     }
@@ -1183,21 +1816,79 @@ const css = String.raw`
       width: 100%; /* Full width on mobile */
       margin: 10px 0; /* Add vertical margin */
     }
+    .testi-section {
+      padding: 80px 15px;
+    }
+    .testi-carousel {
+      gap: 15px;
+      padding: 0 10px;
+    }
+    .testi-cards-container {
+      max-width: calc(100vw - 100px);
+    }
     .testi-card {
-      width: 100%; /* Full width on mobile */
-      margin: 10px 0; /* Add vertical margin */
+      padding: 20px;
+      min-height: 200px;
     }
-    .tech-inner {
+    .testi-nav {
+      font-size: 18px;
+      padding: 6px;
+    }
+    .tech-section {
+      padding: 80px 15px;
+    }
+    
+    /* Mobile layout for new tech section */
+    .tech-layout {
       flex-direction: column;
-      align-items: center;
+      gap: 40px;
     }
-    .tech-cats {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
+    
+    .tech-categories {
+      flex: none;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
     }
-    .tech-content {
+    
+    .tech-category-btn {
+      padding: 10px 16px;
+      font-size: 13px;
       text-align: center;
+      border-radius: 20px;
+    }
+    
+    .tech-category-btn:hover,
+    .tech-category-btn.active {
+      transform: none;
+    }
+    
+    .tech-tools-grid {
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 16px;
+    }
+    
+    .tech-tool-card {
+      padding: 16px;
+    }
+    
+    .tech-tool-logo {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    
+    .tech-tool-name {
+      font-size: 12px;
+    }
+    
+    .tech-section h2 {
+      font-size: 28px;
+    }
+    .tech-subtitle {
+      font-size: 14px;
+      margin-bottom: 40px;
     }
     .cta-section {
       flex-direction: column;
@@ -1207,9 +1898,40 @@ const css = String.raw`
       font-size: 20px; /* Adjust font size for mobile */
       gap: 20px; /* Adjust gap for mobile */
     }
+    
+    /* Carousel responsive adjustments */
+    .brand-item {
+      font-size: 20px;
+      margin: 0 30px;
+    }
+    .partner-logo {
+      height: 28px;
+      margin: 0 40px;
+    }
+    .brands-track {
+      animation-duration: 15s;
+    }
+    .partners-track {
+      animation-duration: 18s;
+    }
   }
 
   @media (max-width: 480px) {
+    .mobile-menu {
+      width: 100%;
+      padding: 70px 20px 20px;
+    }
+    
+    .mobile-menu-items li {
+      font-size: 15px;
+      padding: 12px 0;
+    }
+    
+    .mobile-search {
+      padding: 10px 14px;
+      font-size: 15px;
+    }
+    
     .hero h1 {
       font-size: 28px;
     }
@@ -1220,8 +1942,37 @@ const css = String.raw`
       padding: 10px 15px;
       font-size: 14px;
     }
+    .testi-section {
+      padding: 60px 10px;
+    }
+    .testi-section h2 {
+      font-size: 28px;
+    }
+    .testi-tagline {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+    .testi-carousel {
+      gap: 10px;
+      padding: 0 5px;
+    }
+    .testi-cards-container {
+      max-width: calc(100vw - 80px);
+    }
     .testi-card {
       padding: 16px;
+      min-height: 180px;
+    }
+    .quote {
+      font-size: 28px;
+    }
+    .review {
+      font-size: 13px;
+      min-height: 50px;
+    }
+    .testi-nav {
+      font-size: 16px;
+      padding: 4px;
     }
     .form-page {
       padding: 20px;
@@ -1236,46 +1987,62 @@ const css = String.raw`
       flex-direction: column; /* Stack cards vertically on mobile */
       align-items: center; /* Center cards */
     }
+    
+    /* Mobile carousel adjustments */
+    .brand-item {
+      font-size: 18px;
+      margin: 0 25px;
+    }
+    .partner-logo {
+      height: 24px;
+      margin: 0 30px;
+    }
+    .brands-track {
+      animation-duration: 12s;
+    }
+    .partners-track {
+      animation-duration: 15s;
+    }
+    
+    /* Small mobile adjustments for tech section */
+    .tech-categories {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    
+    .tech-category-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    
+    .tech-tools-grid {
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 12px;
+    }
+    
+    .tech-tool-card {
+      padding: 12px;
+    }
+    
+    .tech-tool-logo {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .tech-tool-name {
+      font-size: 11px;
+    }
+    
+    .tech-section {
+      padding: 60px 10px;
+    }
+    .tech-section h2 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .tech-subtitle {
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
   }
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
