@@ -2,6 +2,58 @@
   text-align: center;
 }
 
+/* Desktop view - show grid layout */
+.desktop-tech-view {
+  display: block;
+}
+
+/* Mobile view - hide accordion by default */
+.mobile-tech-view {
+  display: none;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  /* Hide desktop view on mobile */
+  .desktop-tech-view {
+    display: none !important;
+  }
+  
+  /* Show mobile accordion view */
+  .mobile-tech-view {
+    display: block;
+  }
+  
+  /* Mobile-specific adjustments */
+  .mobile-tech-view .category-header {
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+  
+  .mobile-tech-view .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    padding: 1.2rem;
+  }
+  
+  .mobile-tech-view .tool-card {
+    padding: 0.8rem;
+  }
+  
+  .mobile-tech-view .tool-card .tool-logo {
+    font-size: 1.5rem;
+  }
+  
+  .mobile-tech-view .tool-card .tool-name {
+    font-size: 0.8rem;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+.mobile-tech-view * {
+  transition: all 0.3s ease;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
