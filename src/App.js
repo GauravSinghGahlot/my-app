@@ -5,7 +5,6 @@
  *    other screenshots already placed in public/images/
  *******************************************************************/
 import React, { useState, useRef } from "react";
-import TechAccordion from './components/TechAccordion';
 
 /*────────────────────  LOGO COMPONENT  ─────────────────────────*/
 const Logo = ({ className }) => (
@@ -125,7 +124,7 @@ const Hero = ({ onFormOpen }) => (
       Empowering Businesses with <em>Future‑Ready Software Solutions</em>
     </h1>
     <p>
-      Custom‑built web &amp; mobile apps, enterprise platforms, and scalable
+      Custom‑built web &amp; mobile apps, enterprise platforms, and scalable
       digital products.
     </p>
     <div className="cta">
@@ -139,7 +138,7 @@ const Hero = ({ onFormOpen }) => (
 const TrustBand = () => (
   <section className="trust">
     <p>
-      Trusted by <em>Startups, Scaleups</em>, and <em>Enterprise</em> innovators
+      Trusted by <em>Startups, Scaleups</em>, and <em>Enterprise</em> innovators
     </p>
     <div className="brands-carousel">
       <div className="brands-track">
@@ -232,7 +231,7 @@ const CaseStudies = () => {
     ["/images/easymachine.jpg","Easy Machine – Rent & Buy Equipment","Your one‑stop platform for renting or purchasing heavy machinery, spare parts and more."],
     ["/images/niftytrader.jpg","Nifty Trader – Stock‑Market Suite","NSE option chain, GIFT Nifty, screeners and tools for Indian options traders."],
     ["/images/houseofbanaras.jpg","House of Banaras – Heritage Weaves","Simplicity meets elegance—sharing the timeless traditions and cultural richness of Banaras."],
-    ["/images/outlands.jpg","Outlands – Ultimate Frontier Expeditions","#Follow_the_feather to the world's most isolated, unexplored territories."]
+    ["/images/outlands.jpg","Outlands – Ultimate Frontier Expeditions","#Follow_the_feather to the world’s most isolated, unexplored territories."]
   ];
   const [idx,setIdx]=useState(0);
   const prev = () => setIdx(i => (i - 2 + cases.length) % cases.length);
@@ -272,7 +271,7 @@ const AICapabilities = () => {
   const cards = [
     ["/images/chatbot.jpg","Chatbots & NLP","30+ ready‑made AI solutions tailored to meet diverse business needs."],
     ["https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=60","Predictive Analytics","70+ partners delivering specialized AI expertise."],
-    ["/images/processautomation.jpg","Process Automation","A powerhouse of 5 000+ AI engineers ready to bring your vision to life."]
+    ["/images/processautomation.jpg","Process Automation","A powerhouse of 5 000+ AI engineers ready to bring your vision to life."]
   ];
   return (
     <section className="ai-section">
@@ -284,7 +283,7 @@ const AICapabilities = () => {
         systems—from intelligent automation and predictive analytics to
         personalized user experiences.
       </p>
-      <BtnGhost small>Explore AI Tools</BtnGhost>
+      <BtnGhost small>Explore AI Tools</BtnGhost>
       <div className="ai-grid">
         {cards.map(([img, title, desc]) => (
           <div className="ai-card" key={title}>
@@ -369,7 +368,7 @@ const Testimonials = () => {
       <h2>
         Trusted by <em>Leaders</em>
       </h2>
-      <p className="testi-tagline">Here's what our founders say</p>
+      <p className="testi-tagline">Here’s what our founders say</p>
       <div className="testi-carousel">
         <button className="testi-nav" onClick={prev}>
           <ArrowIcon dir="left" />
@@ -551,27 +550,6 @@ const TechCapabilities = () => {
           </div>
         </div>
       </div>
-      
-      {/* Existing desktop tech section */}
-      <div className="desktop-tech-view">
-        {/* Your existing "Driving digital transformation" section content goes here */}
-        <div style={{ 
-          padding: '4rem 2rem',
-          background: 'linear-gradient(135deg, #0B3D20 0%, #1a5f3f 100%)',
-          color: 'white',
-          textAlign: 'center'
-        }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-            Driving digital transformation through advanced technology capability
-          </h2>
-          <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-            This is the existing desktop section that remains unchanged.
-          </p>
-        </div>
-      </div>
-      
-      {/* New mobile accordion section */}
-      <TechAccordion />
     </section>
   );
 };
@@ -713,7 +691,7 @@ const FinalCTA = () => (
   <section className="cta-section">
     <div className="cta-text">
       <h2>
-        Let's Build the <em>Future</em> of
+        Let’s Build the <em>Future</em> of
         <br />
         Your <em>Business</em>
       </h2>
@@ -736,13 +714,13 @@ const Footer = () => (
           "Cloud Efficiency and Intelligence",
           "Emerging Tech",
           "Software Studio",
-          "Next Gen Talent",
+          "Next Gen Talent",
           "Marketing and Experience",
         ].map((t) => (
           <li key={t}>{t}</li>
         ))}
       </ul>
-      <div className="foot-contact">Contact US</div>
+      <div className="foot-contact">Contact US</div>
     </div>
   </footer>
 );
@@ -763,7 +741,7 @@ function FormPage({ goBack }) {
           Location:<input type="text" placeholder="Your Location" />
         </label>
         <label>
-          Contact Number:<input type="text" placeholder="Your Contact No." />
+          Contact Number:<input type="text" placeholder="Your Contact No." />
         </label>
         <button className="btn primary" type="submit">
           Submit
