@@ -6,6 +6,7 @@
  *******************************************************************/
 import React, { useState, useRef } from "react";
 
+
 /*────────────────────  LOGO COMPONENT  ─────────────────────────*/
 const Logo = ({ className }) => (
   <img
