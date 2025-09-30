@@ -144,11 +144,11 @@ const TrustBand = () => (
     <div className="brands-carousel">
       <div className="brands-track">
         {/* First set of brands */}
-        {["Yatra", "Rapido", "Innisfree", "Godrej | PROPERTIES"].map((brand, i) => (
+        {["EMB GLOBAL", "BENCHKART", "IBM"].map((brand, i) => (
           <span key={`brand-1-${i}`} className="brand-item">{brand}</span>
         ))}
         {/* Duplicate set for seamless loop */}
-        {["Yatra", "Rapido", "Innisfree", "Godrej | PROPERTIES"].map((brand, i) => (
+        {["EMB GLOBAL", "BENCHKART", "IBM"].map((brand, i) => (
           <span key={`brand-2-${i}`} className="brand-item">{brand}</span>
         ))}
       </div>
@@ -340,22 +340,22 @@ const StrategicPartners = () => {
 const Testimonials = () => {
   const reviews = [
     [
-      "Grow Nexus delivered a stable, slick delivery app that helped us scale city‑wide within weeks.",
+      "Grow Nexus built us a seamless and reliable delivery app that transformed our operations. The platform was not only slick and easy to use but also scalable, helping us expand city-wide within just a few weeks. Their team delivered with precision, speed, and attention to detail—truly a game-changer for our business",
       "Nitesh Goyal",
       "Founder, YeloFast",
     ],
     [
-      "They turned our storytelling vision into reality—HelioWeb now hooks audiences from the first scroll.",
+      "Grow Nexus took our storytelling vision and brought it to life with HelioWeb. The result is a stunning platform that captivates audiences from the very first scroll. Their creativity and execution turned an idea into an experience that truly connects",
       "Krishna Ojha",
       "Founder, HelioWeb",
     ],
     [
-      "With Roxstar, singers publish karaoke masterpieces instantly. Engineering quality exceeded expectations.",
+      "With Roxstar, singers can publish karaoke masterpieces in an instant. The platform’s engineering quality went above and beyond our expectations—seamless, reliable, and built to perfection",
       "Harshit Jain",
       "Founder, Roxstar",
     ],
     [
-      "BuildingNeeds now handles thousands of material orders daily thanks to the robust platform they built.",
+      "Grow Nexus built a powerful platform for BuildingNeeds that now processes thousands of material orders every day with ease. The system is robust, reliable, and has scaled effortlessly with our growth—an essential backbone for our business.",
       "Mahesh",
       "Founder, BuildingNeeds",
     ],
